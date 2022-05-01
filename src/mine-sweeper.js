@@ -1,31 +1,38 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
-/**
- * In the popular Minesweeper game you have a board with some mines and those cells
- * that don't contain a mine have a number in it that indicates the total number of mines
- * in the neighboring cells. Starting off with some arrangement of mines
- * we want to create a Minesweeper game setup.
- *
- * @param {Array<Array>} matrix
- * @return {Array<Array>}
- *
- * @example
- * matrix = [
- *  [true, false, false],
- *  [false, true, false],
- *  [false, false, false]
- * ]
- *
- * The result should be following:
- * [
- *  [1, 2, 1],
- *  [2, 1, 1],
- *  [1, 1, 1]
- * ]
- */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  let answers = []
+  for (let k = 0; k < matrix.length; k++) {
+    answers.push([])
+    for (let i = 0; i < matrix[k].length; i++) {
+      let nearbies = []
+      if (k != 0) {
+        if (i != 0) {
+          nearbies.push(matrix[k - 1][i - 1])
+        }
+        nearbies.push(matrix[k - 1][i])
+        if (i + 1 < matrix[k].length) {
+          nearbies.push(matrix[k - 1][i + 1]) 
+        }
+      }
+      if (i > 0) {
+        nearbies.push(matrix[k][i - 1])
+      }
+      if (i + 1 < matrix[k].length) {
+        nearbies.push(matrix[k][i + 1])
+      }
+      if (k + 1 < matrix.length) {
+        if (i != 0) {
+          nearbies.push(matrix[k + 1][i - 1])
+        }
+        if (i + 1 < matrix[k].length) {
+          nearbies.push(matrix[k + 1][i + 1])
+        }
+        nearbies.push(matrix[k + 1][i])
+      }
+          answers[k][i] = nearbies.filter(el => el == true).length
+         
+    }
+  }
+  return answers
 }
 
 module.exports = {
